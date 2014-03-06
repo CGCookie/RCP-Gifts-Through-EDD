@@ -13,6 +13,8 @@ class RCP_Gift_Memberships {
 	private $gifts;
 
 	private $checkout;
+	
+	private $redeem;
 
 	public function __construct() {
 
@@ -32,6 +34,7 @@ class RCP_Gift_Memberships {
 		$this->admin    = new RCP_Gifts_Admin;
 		$this->gifts    = new RCP_Gift_Products;
 		$this->checkout = new RCP_Gifts_Checkout;
+		$this->redeem   = new CGC_RCP_Redeem_Gift;
 
 	}
 
