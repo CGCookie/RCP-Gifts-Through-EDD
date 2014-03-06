@@ -27,6 +27,7 @@ class RCP_Gift_Memberships {
 		include dirname( __FILE__ ) . '/includes/class-gifts.php';
 		include dirname( __FILE__ ) . '/includes/class-gifts-admin.php';
 		include dirname( __FILE__ ) . '/includes/class-gifts-checkout.php';
+		include dirname( __FILE__ ) . '/includes/class-redeem-gift.php';
 
 		$this->admin    = new RCP_Gifts_Admin;
 		$this->gifts    = new RCP_Gift_Products;
