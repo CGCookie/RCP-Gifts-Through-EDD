@@ -60,6 +60,7 @@ class CGC_RCP_Redeem_Gift {
 
 			update_user_meta( get_current_user_id(), 'rcp_subscription_level', $subscription );
 			update_user_meta( get_current_user_id(), 'rcp_expiration', $expiration );
+			rcp_set_status( get_current_user_id(), 'active' );
 
 			wp_redirect( home_url( 'redeem-thanks' ) ); exit;
 
