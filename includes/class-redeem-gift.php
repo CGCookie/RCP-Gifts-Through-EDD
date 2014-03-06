@@ -3,7 +3,7 @@
 class CGC_RCP_Redeem_Gift {
 	
 	public function __construct() {
-		add_action( 'init', array( $this, 'process_gift_redemption' ) );
+		add_action( 'init', array( $this, 'process_gift_redemption', 9 ) );
 	}
 
 	public function process_gift_redemption() {
@@ -60,8 +60,7 @@ class CGC_RCP_Redeem_Gift {
 
 			update_user_meta( get_current_user_id(), 'rcp_subscription_level', $subscription );
 			update_user_meta( get_current_user_id(), 'rcp_expiration', $expiration );
-			update_user_meta( get_current_user_id(), 'rcp_status', 'active' );
-			//rcp_set_status( get_current_user_id(), 'active' );
+			rcp_set_status( get_current_user_id(), 'active' );
 
 			wp_redirect( home_url( 'redeem-thanks' ) ); exit;
 
