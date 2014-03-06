@@ -3,7 +3,7 @@
 class CGC_RCP_Redeem_Gift {
 	
 	public function __construct() {
-		add_action( 'init', array( $this, 'process_gift_redemption', 9 ) );
+		add_action( 'init', array( $this, 'process_gift_redemption' ), 9 );
 	}
 
 	public function process_gift_redemption() {
