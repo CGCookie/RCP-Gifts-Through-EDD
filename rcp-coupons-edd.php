@@ -63,7 +63,7 @@ class RCP_Gift_Memberships {
 		return get_post_meta( $payment_id, '_edd_rcp_gift_data', true );
 	}
 
-	public function send_recipient_email( $name = '', $email = '', $gift_message = '', $payment_id = 0 ) {
+	public function send_recipient_email( $name = '', $email = '', $gift_message = 'Redeem your code from http://cgcookie.com/redeem', $payment_id = 0 ) {
 
 		if( ! class_exists( 'RCP_Discounts' ) )
 			return false;
