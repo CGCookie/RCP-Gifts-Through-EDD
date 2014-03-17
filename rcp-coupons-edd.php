@@ -63,7 +63,7 @@ class RCP_Gift_Memberships {
 		return get_post_meta( $payment_id, '_edd_rcp_gift_data', true );
 	}
 
-	public function send_recipient_email( $name = '', $email = '', $gift_message = 'Redeem your code from http://cgcookie.com/redeem', $payment_id = 0 ) {
+	public function send_recipient_email( $name = '', $email = '', $gift_message = '', $payment_id = 0 ) {
 
 		if( ! class_exists( 'RCP_Discounts' ) )
 			return false;
@@ -90,8 +90,7 @@ class RCP_Gift_Memberships {
 			$body .= '<p>' . __( "The following message was included with the gift: ", "rcp-gifts" ) . '</p>';
 			$body .= '<blockquote>' . $gift_message . '</blockquote>';
 		}
-		$body .= '<p>' . sprintf( __( "Enter %s during registration to redeem your gift.", "rcp-gifts" ), $discount->code ) . '</p>';
-		$body .= '<p>' . sprintf( __( "Visit %s to claim your membership gift.", "rcp-gifts" ), '<a href="' . home_url() . '">' . home_url() . '</a>' ) . '</p>';
+		$body .= '<p>' . sprintf( __( "Enter %s from http://cgcookie.com/redeem to redeem your gift.", "rcp-gifts" ), $discount->code ) . '</p>';
 
 		$message = edd_get_email_body_header();
 		$message .= edd_apply_email_template( $body, $payment_id );
