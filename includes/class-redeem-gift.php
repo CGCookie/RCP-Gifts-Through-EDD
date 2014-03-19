@@ -39,6 +39,12 @@ class CGC_RCP_Redeem_Gift {
 		if( ! empty( $sub_details->duration ) && '0' == $sub_details->price ) {
 
 			// This is a trial subscription level
+			if( rcp_has_used_trial( get_current_user_id() ) ) {
+
+				$error = true;
+				$error_code = '4';
+
+			}
 
 		} elseif( absint( $discount->use_count ) >= 1 && $payment_id ) {
 
@@ -68,6 +74,7 @@ class CGC_RCP_Redeem_Gift {
 			// Check if the code being redeemed is for a trial subscription
 			if( ! empty( $sub_details->duration ) && '0' == $sub_details->price ) {
 				update_user_meta( get_current_user_id(), 'rcp_is_trialing', 'yes' );
+				update_user_meta( get_current_user_id(), 'rcp_has_trialed', 'yes' );
 			}
 
 			update_user_meta( get_current_user_id(), 'rcp_subscription_level', $subscription );
