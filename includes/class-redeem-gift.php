@@ -68,7 +68,7 @@ class CGC_RCP_Redeem_Gift {
 			$sub_details  = rcp_get_subscription_details( $subscription );
 
 			// Check if the code being redeemed is for a trial subscription
-			if( ! empty( $sub_details->duration ) && empty( $sub_details->price ) ) {
+			if( ! empty( $sub_details->duration ) && '0' == $sub_details->price ) {
 				update_user_meta( get_current_user_id(), 'rcp_is_trialing', 'yes' );
 			}
 
