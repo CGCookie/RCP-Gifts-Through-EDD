@@ -34,17 +34,15 @@ class CGC_RCP_Redeem_Gift {
 		$discount  = $discounts->get_by( 'code', $code );
 
 		// Validate this as a proper gift
-		/*
-		 * Disabled for now because we are allowing trial subscription redemptions as well
 		$payment_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id from $wpdb->postmeta WHERE meta_key = '_edd_rcp_gift_id' AND meta_value = '%d';", $discount->id ) );
-		if( ! $payment_id )  {
+		
+		if( ! empty( $sub_details->duration ) && '0' == $sub_details->price ) {
 
-			$error = true;
-			$error_code = '1';
+			// This is a trial subscription level
 
-		}*/
+		} elseif( absint( $discount->use_count ) >= 1 && $payment_id ) {
 
-		if( absint( $discount->use_count ) >= 1 ) {
+			// This is a gift, so it can only be used once
 
 			$error = true;
 			$error_code = '2';
