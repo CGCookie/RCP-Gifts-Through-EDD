@@ -50,10 +50,22 @@ class CGC_RCP_Redeem_Gift {
 			$error_code = '2';
 		}
 
+		// Strictly compare discount codes
+		if( strcmp( $code, $discount->code ) != 0 ) {
+			$error = true;
+			$error_code = '5';
+		}
+
 		if( empty( $discount->subscription_id ) ) {
 
 			$error = true;
 			$error_code = '3';
+		}
+
+		if( $discounts->is_expired( $discount->id ) ) {
+
+			$error = true;
+			$error_code = '36';
 		}
 
 		if( ! $error ) {
