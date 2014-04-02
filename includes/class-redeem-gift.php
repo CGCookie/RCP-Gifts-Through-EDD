@@ -69,7 +69,7 @@ class CGC_RCP_Redeem_Gift {
 		if( $discounts->is_expired( $discount->id ) ) {
 
 			$error = true;
-			$error_code = '36';
+			$error_code = '6';
 		}
 
 		if( ! $error ) {
