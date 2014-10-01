@@ -4,11 +4,12 @@ class RCP_Gifts_Checkout {
 
 	public function __construct() {
 
-		add_action( 'edd_purchase_form_before_cc_form', array( $this, 'fields'          )        );
-		add_action( 'edd_checkout_error_checks',        array( $this, 'validate_fields' ), 10, 2 );
-		add_action( 'edd_insert_payment',               array( $this, 'store_gift_data' ), 10, 2 );
-		add_action( 'edd_complete_purchase',            array( $this, 'complete_gift'   ), 10, 2 );
-		add_action( 'edd_payment_receipt_after',        array( $this, 'receipt'         ), 10, 2 );
+		add_action( 'edd_purchase_form_before_cc_form', array( $this, 'fields'             )        );
+		add_action( 'edd_checkout_error_checks',        array( $this, 'validate_fields'    ), 10, 2 );
+		add_action( 'edd_insert_payment',               array( $this, 'store_gift_data'    ), 10, 2 );
+		add_action( 'edd_complete_purchase',            array( $this, 'complete_gift'      ), 10, 2 );
+		add_action( 'edd_payment_receipt_after',        array( $this, 'receipt'            ), 10, 2 );
+		add_action( 'edd_email_tags',                   array( $this, 'register_email_tag' ), 10    );
 
 	}
 
@@ -177,15 +178,15 @@ class RCP_Gifts_Checkout {
 ?>
 			<tr>
 				<td><?php _e( 'Gift Recipient Name', 'rcp-gifts' ); ?></td>
-				<td><?php echo $gift['name']; ?>
+				<td><?php echo $gift['name']; ?></td>
 			</tr>
 			<tr>
 				<td><?php _e( 'Gift Recipient Email', 'rcp-gifts' ); ?></td>
-				<td><?php echo $gift['email']; ?>
+				<td><?php echo $gift['email']; ?></td>
 			</tr>
 			<tr>
 				<td><?php _e( 'Gift Message', 'rcp-gifts' ); ?></td>
-				<td><?php echo $message; ?>
+				<td><?php echo $message; ?></td>
 			</tr>
 			<tr>
 				<td><?php _e( 'Redeemable code for gift:', 'rcp-gifts' ); ?></td>
@@ -193,5 +194,53 @@ class RCP_Gifts_Checkout {
 			</tr>
 <?php
 		endforeach;
+	}
+
+	public function register_email_tag() {
+		edd_add_email_tag( 'gift_code', 'Displays the giftted discount code information', array( $this, 'email_tag' ) );
+	}
+
+	public function email_tag( $payment_id ) {
+		
+		$gifts = $rcp_gifts->get_gifts_of_payment( $payment_id );
+
+		$content = ob_start();
+
+		if( $gifts ) {
+
+			foreach( $gifts as $gift ) {
+
+				if( ! empty( $gift['message'] ) && __( 'Enter the a message to send to the recipient', 'rcp-gifts' ) != $gift['message'] ) {
+					$message = $gift['message'];
+				} else {
+					$message = __( 'none', 'rcp-gifts' );
+				}
+				
+				$code = md5( $gift['name'] . $gift['email'] . $payment_id );
+
+	?>
+				<table>
+					<tr>
+						<td><?php _e( 'Gift Recipient Name', 'rcp-gifts' ); ?></td>
+						<td><?php echo $gift['name']; ?></td>
+					</tr>
+					<tr>
+						<td><?php _e( 'Gift Recipient Email', 'rcp-gifts' ); ?></td>
+						<td><?php echo $gift['email']; ?>
+					</tr>
+					<tr>
+						<td><?php _e( 'Gift Message', 'rcp-gifts' ); ?></td>
+						<td><?php echo $message; ?></td>
+					</tr>
+					<tr>
+						<td><?php _e( 'Redeemable code for gift:', 'rcp-gifts' ); ?></td>
+						<td><strong><?php echo $code; ?></strong></td>
+					</tr>
+				</table
+	<?php
+			}
+		}
+
+		return ob_get_clean();
 	}
 }
