@@ -36,6 +36,11 @@ class CGC_RCP_Redeem_Gift {
 		// Validate this as a proper gift
 		$payment_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id from $wpdb->postmeta WHERE meta_key = '_edd_rcp_gift_id' AND meta_value = '%d';", $discount->id ) );
 		
+		// Find the subscription level this discount gives access to
+		$subscription = $discount->subscription_id;
+		$expiration   = rcp_calculate_subscription_expiration( $subscription );
+		$sub_details  = rcp_get_subscription_details( $subscription );
+
 		if( ! empty( $sub_details->duration ) && '0' == $sub_details->price ) {
 
 			// This is a trial subscription level
@@ -77,11 +82,6 @@ class CGC_RCP_Redeem_Gift {
 			// all good
 			$discounts->increase_uses( $discount->id );
 			$discounts->add_to_user( get_current_user_id(), $code );
-
-			// Find the subscription level this discount gives access to
-			$subscription = $discount->subscription_id;
-			$expiration   = rcp_calculate_subscription_expiration( $subscription );
-			$sub_details  = rcp_get_subscription_details( $subscription );
 
 			// Check if the code being redeemed is for a trial subscription
 			if( ! empty( $sub_details->duration ) && '0' == $sub_details->price ) {
