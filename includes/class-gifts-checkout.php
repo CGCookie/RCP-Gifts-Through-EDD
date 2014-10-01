@@ -206,9 +206,11 @@ class RCP_Gifts_Checkout {
 
 		$gifts = $rcp_gifts->get_gifts_of_payment( $payment_id );
 
-		$content = ob_start();
+		$content = '';
 
 		if( $gifts ) {
+		
+			$content = ob_start();
 
 			foreach( $gifts as $gift ) {
 
@@ -241,8 +243,11 @@ class RCP_Gifts_Checkout {
 				</table
 	<?php
 			}
+
+			$content = ob_get_clean();
+
 		}
 
-		return ob_get_clean();
+		return $content;
 	}
 }
