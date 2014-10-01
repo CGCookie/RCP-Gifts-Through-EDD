@@ -80,26 +80,17 @@ class RCP_Gift_Memberships {
 
 		$subject = sprintf( __( 'Gift Certificate to %s', 'rcp-gifts' ), $site_name );
 
-		$from_name = isset( $edd_options['from_name'] ) ? $edd_options['from_name'] : get_bloginfo('name');
-		$from_email = isset( $edd_options['from_email'] ) ? $edd_options['from_email'] : get_option('admin_email');
-
-		$headers = "From: " . stripslashes_deep( html_entity_decode( $from_name, ENT_COMPAT, 'UTF-8' ) ) . " <$from_email>\r\n";
-		$headers .= "Reply-To: ". $from_email . "\r\n";
-		$headers .= "Content-Type: text/html; charset=utf-8\r\n";
-
-		$body = '<p>' . __( "Hello!", "rcp-gifts" ) . '</p>';
-		$body .= '<p>' . sprintf( __( "Someone has gifted you a membership to %s", "rcp-gifts" ), $site_name ) . '</p>';
+		$message = '<p>' . __( "Hello!", "rcp-gifts" ) . '</p>';
+		$message .= '<p>' . sprintf( __( "Someone has gifted you a membership to %s", "rcp-gifts" ), $site_name ) . '</p>';
 		if( ! empty( $gift_message ) && __( 'Enter the a message to send to the recipient', 'rcp-gifts' ) != $gift_message ) {
-			$body .= '<p>' . __( "The following message was included with the gift: ", "rcp-gifts" ) . '</p>';
-			$body .= '<blockquote>' . $gift_message . '</blockquote>';
+			$message .= '<p>' . __( "The following message was included with the gift: ", "rcp-gifts" ) . '</p>';
+			$message .= '<blockquote>' . $gift_message . '</blockquote>';
 		}
-		$body .= '<p>' . sprintf( __( "Enter %s from http://cgcookie.com/redeem to redeem your gift.", "rcp-gifts" ), $discount->code ) . '</p>';
+		$message .= '<p>' . sprintf( __( "Enter %s from http://cgcookie.com/redeem to redeem your gift.", "rcp-gifts" ), $discount->code ) . '</p>';
 
-		$message = edd_get_email_body_header();
-		$message .= edd_apply_email_template( $body, $payment_id );
-		$message .= edd_get_email_body_footer();
 
-		wp_mail( $email, $subject, $message, $headers );
+		EDD()->emails->__set( 'header', 'CG Cookie Gift Certificate' );
+		EDD()->emails->send( $email, $subject, $message );
 
 	}
 
