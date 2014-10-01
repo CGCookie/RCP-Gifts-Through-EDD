@@ -9,7 +9,7 @@ class RCP_Gifts_Checkout {
 		add_action( 'edd_insert_payment',               array( $this, 'store_gift_data'    ), 10, 2 );
 		add_action( 'edd_complete_purchase',            array( $this, 'complete_gift'      ), 10, 2 );
 		add_action( 'edd_payment_receipt_after',        array( $this, 'receipt'            ), 10, 2 );
-		add_action( 'edd_email_tags',                   array( $this, 'register_email_tag' ), 100   );
+		add_action( 'edd_add_email_tags',               array( $this, 'register_email_tag' ), 100   );
 
 	}
 
