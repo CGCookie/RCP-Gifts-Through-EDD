@@ -202,6 +202,8 @@ class RCP_Gifts_Checkout {
 
 	public function email_tag( $payment_id ) {
 		
+		global $rcp_gifts;
+
 		$gifts = $rcp_gifts->get_gifts_of_payment( $payment_id );
 
 		$content = ob_start();
