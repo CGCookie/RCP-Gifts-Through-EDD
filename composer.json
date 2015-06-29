@@ -1,0 +1,17 @@
+{
+    "name": "cgcookie/rcp-gifts-through-edd",
+    "type": "wordpress-plugin",
+    "description": "Sends CGC data to segment.io",
+    "keywords": [ "rcp", "edd", "gifts"],
+    "homepage": "http://cgcookie.com",
+    "authors": [
+        {
+            "name": "Pippin Williamson",
+            "email": "pippin@pippinsplugins.com",
+            "homepage": "http://pippinsplugins.com"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0.6"
+    }
+}
