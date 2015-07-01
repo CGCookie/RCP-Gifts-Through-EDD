@@ -99,7 +99,7 @@ class CGC_RCP_Redeem_Gift {
 
 		} else {
 
-			wp_redirect( add_query_arg( 'error', $error_code ) ); exit;
+			wp_redirect( add_query_arg( 'redeem-error', $error_code ) ); exit;
 
 		}
 
