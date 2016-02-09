@@ -12,17 +12,13 @@ class CGC_RCP_Redeem_Gift {
 
 		$is_citizen = class_exists('cgcUserApi') ? cgcUserApi::is_user_citizen() : false;
 
-		if ( is_page('redeem') ): ?>
+		if ( is_page('redeem') && !$is_citizen ): ?>
 			<fieldset id="rcp_redeem_gift_code" class="rcp_redemption_fieldset registration-step <?php echo is_user_logged_in() ? 'logged-in' : false;?> ">
 				<div class="registration-step-info">
-					<?php if( $is_citizen ) : ?>
-						<p class="rcp_subscription_message">You already have an active Citizen account (yay!) and may redeem your gift once your current access expires.</p>
-					<?php else : ?>
-						<p class="rcp_subscription_message">Paste your Gift Membership code below to automatically redeem your free membership to CG Cookie.</p>
-					<?php endif; ?>
+					<p class="rcp_subscription_message">Paste your Gift Membership code below to automatically redeem your free membership to CG Cookie.</p>
 				</div>
 				<div class="registration-step-controls">
-					<?php if( rcp_has_discounts() && !$is_citizen ) : ?>
+					<?php if( rcp_has_discounts() ) : ?>
 						<p id="rcp_discount_code_p_wrap">
 							<input type="text" id="rcp_discount_code" name="rcp_discount" class="rcp_discount_code" required placeholder="Enter Gift Code" value=""/>
 						</p>
