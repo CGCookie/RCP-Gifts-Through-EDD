@@ -13,10 +13,8 @@ class CGC_RCP_Redeem_Gift {
 		$is_citizen = class_exists('cgcUserApi') ? cgcUserApi::is_user_citizen() : false;
 
 		if ( is_page('redeem') && !$is_citizen ): ?>
-			<fieldset id="rcp_redeem_gift_code" class="rcp_redemption_fieldset registration-step <?php echo is_user_logged_in() ? 'logged-in' : false;?> ">
-				<div class="registration-step-info">
-					<p class="rcp_subscription_message">Paste your Gift Membership code below to automatically redeem your free membership to CG Cookie.</p>
-				</div>
+			<fieldset id="rcp_redeem_gift_code" class="rcp_redemption_fieldset registration-step">
+
 				<div class="registration-step-controls">
 					<?php if( rcp_has_discounts() ) : ?>
 						<p id="rcp_discount_code_p_wrap">
