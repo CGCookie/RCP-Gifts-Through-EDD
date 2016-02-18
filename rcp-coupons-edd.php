@@ -3,7 +3,7 @@
  * Plugin Name: Restrict Content Pro - Gift Memberships
  * Description: Purchase RCP discount codes as gifts through Easy Digital Downloads
  * Author: Pippin Williamson
- * Version: 1.0
+ * Version: 1.1
  */
 
 class RCP_Gift_Memberships {
